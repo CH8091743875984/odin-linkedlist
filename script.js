@@ -51,17 +51,17 @@ class LinkedList {
     }
   }
   at(index) {
-    size = this.size();
+    //zero indexed
+    let size = this.size();
     //what to do if index out of bounds
     if (index < 0) {
-      index = size + index;
-      console.error("Invalid index");
-      //don't think you can do negative indexes with this... unless you traverse the whole thing
+      //reverse index into a positive
+      index = size + index + 1;
     }
     if (index == 0) {
       return this.head;
     } else {
-      let count = 0;
+      let count = 1;
       let tmp = this.head;
       while (index !== count) {
         count++;
@@ -86,7 +86,6 @@ class LinkedList {
       tmp = tmp.nextNode;
     }
     string += "null";
-    console.log(string);
     return string;
   }
 }
@@ -98,7 +97,11 @@ class Node {
   }
 }
 
+console.log("Initialize list");
+
 let list = new LinkedList();
+
+console.log("Append list");
 
 list.append("dog");
 list.append("cat");
@@ -107,4 +110,23 @@ list.append("hamster");
 list.append("snake");
 list.append("turtle");
 
-list.toString();
+console.log("Prepend list");
+list.prepend("heyy");
+
+console.log("First print list");
+console.log(list.toString());
+
+console.log("Size");
+console.log(list.size());
+
+console.log("Head");
+console.log(list.head);
+
+console.log("Tail");
+console.log(list.tail());
+
+console.log("Index at test for 3");
+console.log(list.at(3));
+
+console.log("Index at test for -2");
+console.log(list.at(-2));

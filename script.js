@@ -1,3 +1,10 @@
+class Node {
+  constructor(value = null, nextNode = null) {
+    this.value = value;
+    this.nextNode = nextNode;
+  }
+}
+
 class LinkedList {
   constructor(head = null) {
     this.head = head;
@@ -56,12 +63,12 @@ class LinkedList {
     //what to do if index out of bounds
     if (index < 0) {
       //reverse index into a positive
-      index = size + index + 1;
+      index = size + index;
     }
     if (index == 0) {
       return this.head;
     } else {
-      let count = 1;
+      let count = 0;
       let tmp = this.head;
       while (index !== count) {
         count++;
@@ -71,12 +78,35 @@ class LinkedList {
     }
   }
   pop() {
-    let tmp = at(-2);
+    //what about size = 1
+    let tmp = this.at(-2);
     tmp.nextNode = null;
   }
-  contains(value) {}
+  contains(value) {
+    let tmp = this.head;
+    while (tmp) {
+      if (tmp.value == value) {
+        return true;
+      } else {
+        tmp = tmp.nextNode;
+      }
+    }
+    return false;
+  }
 
-  find(value) {}
+  find(value) {
+    let tmp = this.head;
+    let count = 0;
+    while (tmp) {
+      if (tmp.value == value) {
+        return count;
+      } else {
+        count++;
+        tmp = tmp.nextNode;
+      }
+    }
+    return null;
+  }
 
   toString() {
     let string = "";
@@ -88,12 +118,17 @@ class LinkedList {
     string += "null";
     return string;
   }
-}
 
-class Node {
-  constructor(value = null, nextNode = null) {
-    this.value = value;
-    this.nextNode = nextNode;
+  insertAt(value, index) {
+    let tmp = this.at(index);
+    let tmpPrev = this.at(index - 1);
+    tmpPrev.nextNode = new Node(value, tmp);
+  }
+
+  removeAt(index) {
+    let tmp = this.at(index - 1);
+    let tmpNext = this.at(index + 1);
+    tmp.nextNode = tmpNext;
   }
 }
 
@@ -117,16 +152,45 @@ console.log("First print list");
 console.log(list.toString());
 
 console.log("Size");
+console.log(list.toString());
 console.log(list.size());
 
 console.log("Head");
+console.log(list.toString());
 console.log(list.head);
 
 console.log("Tail");
+console.log(list.toString());
 console.log(list.tail());
 
 console.log("Index at test for 3");
+console.log(list.toString());
 console.log(list.at(3));
 
 console.log("Index at test for -2");
+console.log(list.toString());
 console.log(list.at(-2));
+
+console.log("Test pop (remove last element)");
+console.log(list.toString());
+list.pop();
+console.log(list.toString());
+
+console.log("Test contains hamster, and find for index value");
+console.log(list.contains("hamster"));
+console.log(list.find("hamster"));
+
+console.log("Test contains pizza, and find for index value");
+console.log(list.contains("pizza"));
+console.log(list.find("pizza"));
+
+console.log("Test insert 'bacon' at index 3");
+console.log(list.toString());
+list.insertAt("bacon", 3);
+console.log(list.toString());
+
+console.log("Test remove at index 4 (should remove parrot)");
+console.log(list.toString());
+console.log(list.at(4));
+list.removeAt(4);
+console.log(list.toString());

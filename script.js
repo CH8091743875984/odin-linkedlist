@@ -1,16 +1,17 @@
-class Node {
+export class Node {
   constructor(value = null, nextNode = null) {
     this.value = value;
     this.nextNode = nextNode;
   }
 }
 
-class LinkedList {
+export class LinkedList {
   constructor(head = null) {
     this.head = head;
   }
 
   append(value) {
+    //adds a new node containing value to the end of the list
     //if head is null (ll empty), make a new node and set it to head
     if (this.head == null) {
       this.head = new Node(value);
@@ -20,6 +21,7 @@ class LinkedList {
   }
 
   prepend(value) {
+    //adds a new node containing value to the start of the list
     if (this.head == null) {
       this.head = new Node(value);
     } else {
@@ -29,6 +31,7 @@ class LinkedList {
   }
 
   size() {
+    //returns the total number of nodes in the list
     let count = 0;
 
     let tmp = this.head;
@@ -41,10 +44,12 @@ class LinkedList {
   }
 
   head() {
+    //returns the first node in the list
     return this.head;
   }
 
   tail() {
+    //returns the last node in the list
     if (this.head == null) {
       return null;
     } else {
@@ -58,6 +63,7 @@ class LinkedList {
     }
   }
   at(index) {
+    //returns the node at the given index
     //zero indexed
     let size = this.size();
     //what to do if index out of bounds
@@ -78,11 +84,13 @@ class LinkedList {
     }
   }
   pop() {
+    //removes the last element from the list
     //what about size = 1
     let tmp = this.at(-2);
     tmp.nextNode = null;
   }
   contains(value) {
+    //returns true if the passed in value is in the list and otherwise returns false.
     let tmp = this.head;
     while (tmp) {
       if (tmp.value == value) {
@@ -95,6 +103,7 @@ class LinkedList {
   }
 
   find(value) {
+    //returns the index of the node containing value, or null if not found.
     let tmp = this.head;
     let count = 0;
     while (tmp) {
@@ -109,6 +118,9 @@ class LinkedList {
   }
 
   toString() {
+    //represents your LinkedList objects as strings,
+    //so you can print them out and preview them in the console.
+    //The format should be: ( value ) -> ( value ) -> ( value ) -> null
     let string = "";
     let tmp = this.head;
     while (tmp) {
@@ -120,12 +132,14 @@ class LinkedList {
   }
 
   insertAt(value, index) {
+    //that inserts a new node with the provided value at the given index.
     let tmp = this.at(index);
     let tmpPrev = this.at(index - 1);
     tmpPrev.nextNode = new Node(value, tmp);
   }
 
   removeAt(index) {
+    //removes the node at the given index.
     let tmp = this.at(index - 1);
     let tmpNext = this.at(index + 1);
     tmp.nextNode = tmpNext;
